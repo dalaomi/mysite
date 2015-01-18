@@ -9,6 +9,14 @@ def index(request):
     pretty_posts = Post.objects.filter(published_date__isnull=False).order_by('comment_num') 
     return render_to_response('index.html',{'posts':posts,'pretty_posts':pretty_posts})
 
+def draft(request):
+    # 已发布文章倒序展示
+    posts = Post.objects.filter(published_date__isnull=False).order_by('-create_date')
+    # 热门文章倒序展示
+    pretty_posts = Post.objects.filter(published_date__isnull=False).order_by('comment_num') 
+    return render_to_response('index.html',{'posts':posts,'pretty_posts':pretty_posts})
+
+
 def post_list(request):
     posts = Post.objects.filter(published_date__isnull=False).order_by('-published_date')
     return render_to_response('post_list.html',{'posts':posts})
