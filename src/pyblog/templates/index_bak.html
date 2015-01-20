@@ -1,0 +1,387 @@
+{% load static %}
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css'%}">
+    <!-- Blog CSS-->
+    <link rel="stylesheet" href="{% static 'css/blog.css'%}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/shCoreDefault.css'%}">
+    <script type="text/javascript" src="{% static 'js/shCore.js'%}"></script>
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="{% static 'js/jquery-1.11.1.min.js'%}"></script>
+    <script src="{% static 'js/base.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <title>个人博客</title>
+</head>
+<body class="customize-support">
+<div class="page-header">
+    
+        <a href="https://yidaoblog.herokuapp.com/post/new/" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+        <a href="/post/drafts/" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
+        <p class="top-menu" style="font-size: 15pt;">欢迎你 admin
+            <small>&nbsp;</small>
+            <a href="https://yidaoblog.herokuapp.com/accounts/logout/" class="top-menu">
+                <span class="glyphicon glyphicon-log-out"></span></a>
+        </p>
+    
+    <h1><a href="/">个人博客</a></h1>
+</div>
+<div id="navigation">
+    <!-- menus START -->
+    <ul id="menus">
+        <li class="page_item">
+            <a class="home" title="首页" href="./极简博客_files/极简博客.html">首页</a>
+        </li>
+        
+            <li class="page_item">
+                <a href="https://yidaoblog.herokuapp.com/page/1/">开心一刻</a>
+            </li>
+        
+            <li class="page_item">
+                <a href="https://yidaoblog.herokuapp.com/page/4/">关于作者</a>
+            </li>
+        
+            <li class="page_item">
+                <a href="https://yidaoblog.herokuapp.com/page/3/">关于本站</a>
+            </li>
+        
+        <li><a class="lastmenu" href="javascript:void(0);"></a></li>
+    </ul>
+    <!-- menus END -->
+    <!-- searchbox START -->
+    <div id="searchbox">
+        <form action="https://yidaoblog.herokuapp.com/posts/search/" method="get">
+            <div class="content">
+                <label>
+                    <input type="text" class="textfield searchtip searchtip" name="q" size="24" value="">
+                </label>
+                <input type="submit" class="button" value="">
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        //<![CDATA[
+        var searchbox = MGJS.$("searchbox");
+        var searchtxt = MGJS.getElementsByClassName("textfield", "input", searchbox)[0];
+        var searchbtn = MGJS.getElementsByClassName("button", "input", searchbox)[0];
+        var tiptext = "请输入关键字...";
+        if (searchtxt.value == "" || searchtxt.value == tiptext) {
+            searchtxt.className += " searchtip";
+            searchtxt.value = tiptext;
+        }
+        searchtxt.onfocus = function (e) {
+            if (searchtxt.value == tiptext) {
+                searchtxt.value = "";
+                searchtxt.className = searchtxt.className.replace(" searchtip", "");
+            }
+        };
+        searchtxt.onblur = function (e) {
+            if (searchtxt.value == "") {
+                searchtxt.className += " searchtip";
+                searchtxt.value = tiptext;
+            }
+        };
+        searchbtn.onclick = function (e) {
+            if (searchtxt.value == "" || searchtxt.value == tiptext) {
+                return false;
+            }
+        };
+        //]]>
+    </script>
+    <!-- searchbox END -->
+    <div class="fixed"></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-7" style="padding-right:18px;">
+        
+   	{% for post in posts %}
+   	  <div class="post">
+           <h2><a href="/post/detail/{{post.id}}/">{{post.title}}</a></h2>
+           <div class="info">
+               <span class="date">{{post.published_date}}</span>
+               <span class="comments">2 条评论</span>
+               <span class="comments">53 人阅读&nbsp;&nbsp;</span>
+               <div class="fixed"></div>
+           </div>
+           <div class="content">
+               <p> {{post.text|truncatechars:50}}  <a href="/post/detail/{{post.id}}/">查看全文...</a></p>
+           </div>
+           <div class="under">
+               <span class="categories">分类: </span>
+               <span>
+                   <a href="https://yidaoblog.herokuapp.com/posts/category/Linux" rel="category tag">Linux
+                   </a>
+               </span>
+               <span class="tags">标签: </span>
+               <span>
+               		<a href="https://yidaoblog.herokuapp.com/posts/tag/%E8%BF%AD%E4%BB%A3" rel="tag">迭代</a>&nbsp;
+               </span>
+           </div>
+       </div>
+   	{% endfor %}
+        
+    
+    
+        
+    
+    
+
+<div class="text-right">
+  <ul class="pagination">
+    
+        <li class="disabled"><span class="disabled prev">‹‹ 上一页</span></li>
+    
+    
+        
+            
+                <li class="active"><span class="current page">1</span></li>
+            
+        
+    
+        
+            
+                <li><a href="https://yidaoblog.herokuapp.com/?page=2" class="page">2</a></li>
+            
+        
+    
+    
+        <li><a href="https://yidaoblog.herokuapp.com/?page=2" class="next">下一页 ››</a></li>
+    
+  </ul>
+</div>
+
+
+
+    </div>
+    <div class="col-md-3">
+        <div id="sidebar">
+            <!-- sidebar north START -->
+            <div id="northsidebar" class="sidebar">
+                <!-- showcase -->
+                <div id="recent-posts-1" class="widget widget_recent_entries">
+                    <h3>近期文章</h3>
+                    <ul>
+                        {% for post in posts %} 
+                            <li>
+                                <a href="https://yidaoblog.herokuapp.com/post/21/">
+                                    {{post.title}}
+                                </a>
+                            </li>
+                        {% endfor %}
+                            
+                        
+                    </ul>
+                </div>
+                <div id="recent-comments-2" class="widget widget_recent_comments">
+                    <h3>近期评论</h3>
+                    <ul id="recentcomments">
+                        
+                            <li class="recentcomments">
+                            <span>
+                                DS:
+                                <a href="https://yidaoblog.herokuapp.com/post/15/">
+                                    这是一个新文章
+                                </a>
+                            </span>
+                            </li>
+                        
+                            <li class="recentcomments">
+                            <span>
+                                nightfarmer:
+                                <a href="https://yidaoblog.herokuapp.com/post/14/">
+                                    测试插入more标签
+                                </a>
+                            </span>
+                            </li>
+                        
+                            <li class="recentcomments">
+                            <span>
+                                试试:
+                                <a href="https://yidaoblog.herokuapp.com/post/1/">
+                                    Java8中的lambda表达式
+                                </a>
+                            </span>
+                            </li>
+                        
+                            <li class="recentcomments">
+                            <span>
+                                黑客帝国:
+                                <a href="https://yidaoblog.herokuapp.com/post/14/">
+                                    测试插入more标签
+                                </a>
+                            </span>
+                            </li>
+                        
+                            <li class="recentcomments">
+                            <span>
+                                小小:
+                                <a href="https://yidaoblog.herokuapp.com/post/3/">
+                                    珍惜世上的五个人
+                                </a>
+                            </span>
+                            </li>
+                        
+                            <li class="recentcomments">
+                            <span>
+                                一路向北:
+                                <a href="https://yidaoblog.herokuapp.com/post/3/">
+                                    珍惜世上的五个人
+                                </a>
+                            </span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                <div id="recent-posts-2" class="widget widget_recent_entries">
+                    <h3>热门文章</h3>
+                    <ul>
+                        {% for post in pretty_posts%}
+                        	<li>
+                                <a href="https://yidaoblog.herokuapp.com/post/15/">
+                                  {{post.title}} 	
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div id="tag_cloud-2" class="widget widget_tag_cloud">
+                    <h3>标签</h3>
+                    <div class="tagcloud">
+                        
+                            <a href="https://yidaoblog.herokuapp.com/posts/tag/lambda" class="tag-link-20" title="1个话题" style="font-size: 8pt;">lambda</a>
+                        
+                            <a href="https://yidaoblog.herokuapp.com/posts/tag/java" class="tag-link-20" title="2个话题" style="font-size: 10pt;">java</a>
+                        
+                            <a href="https://yidaoblog.herokuapp.com/posts/tag/asdsa" class="tag-link-20" title="1个话题" style="font-size: 8pt;">asdsa</a>
+                        
+                            <a href="https://yidaoblog.herokuapp.com/posts/tag/%E8%BF%AD%E4%BB%A3" class="tag-link-20" title="1个话题" style="font-size: 8pt;">迭代</a>
+                        
+                            <a href="https://yidaoblog.herokuapp.com/posts/tag/%E7%8F%8D%E6%83%9C" class="tag-link-20" title="1个话题" style="font-size: 8pt;">珍惜</a>
+                        
+                            <a href="https://yidaoblog.herokuapp.com/posts/tag/python" class="tag-link-20" title="1个话题" style="font-size: 8pt;">python</a>
+                        
+                            <a href="https://yidaoblog.herokuapp.com/posts/tag/%E5%90%BC%E5%90%BC" class="tag-link-20" title="1个话题" style="font-size: 8pt;">吼吼</a>
+                        
+                            <a href="https://yidaoblog.herokuapp.com/posts/tag/%E6%96%B0%E6%A0%87%E7%AD%BE%E6%B5%8B%E8%AF%95" class="tag-link-20" title="0个话题" style="font-size: 6pt;">新标签测试</a>
+                        
+                            <a href="https://yidaoblog.herokuapp.com/posts/tag/linux" class="tag-link-20" title="1个话题" style="font-size: 8pt;">linux</a>
+                        
+                            <a href="https://yidaoblog.herokuapp.com/posts/tag/awfawf" class="tag-link-20" title="1个话题" style="font-size: 8pt;">awfawf</a>
+                        
+                            <a href="https://yidaoblog.herokuapp.com/posts/tag/github" class="tag-link-20" title="1个话题" style="font-size: 8pt;">github</a>
+                        
+                            <a href="https://yidaoblog.herokuapp.com/posts/tag/%E7%AC%AC%E4%B8%89%E6%96%B9" class="tag-link-20" title="1个话题" style="font-size: 8pt;">第三方</a>
+                        
+                            <a href="https://yidaoblog.herokuapp.com/posts/tag/vim" class="tag-link-20" title="1个话题" style="font-size: 8pt;">vim</a>
+                        
+                    </div>
+                </div>
+                <div id="categories-2" class="widget widget_categories">
+                    <h3>分类目录</h3>
+                    <ul>
+                        
+                            <li class="cat-item cat-item-10">
+                                <a href="https://yidaoblog.herokuapp.com/posts/category/Java" title="Java">Java</a>
+                            </li>
+                        
+                            <li class="cat-item cat-item-10">
+                                <a href="https://yidaoblog.herokuapp.com/posts/category/Linux" title="Linux">Linux</a>
+                            </li>
+                        
+                            <li class="cat-item cat-item-10">
+                                <a href="https://yidaoblog.herokuapp.com/posts/category/%E6%9C%9D%E8%8A%B1%E5%A4%95%E6%8B%BE" title="朝花夕拾">朝花夕拾</a>
+                            </li>
+                        
+                            <li class="cat-item cat-item-10">
+                                <a href="https://yidaoblog.herokuapp.com/posts/category/%E7%AE%97%E6%B3%95" title="算法">算法</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+                <div id="archives-2" class="widget widget_archive">
+                    <h3>文章归档</h3>
+                    <ul>
+                        
+                            <li>
+                                <a href="https://yidaoblog.herokuapp.com/posts/archive/2014/3">
+                                    2014年3月</a>&nbsp;(1)
+                            </li>
+                        
+                            <li>
+                                <a href="https://yidaoblog.herokuapp.com/posts/archive/2014/11">
+                                    2014年11月</a>&nbsp;(8)
+                            </li>
+                        
+                            <li>
+                                <a href="https://yidaoblog.herokuapp.com/posts/archive/2013/11">
+                                    2013年11月</a>&nbsp;(1)
+                            </li>
+                        
+                            <li>
+                                <a href="https://yidaoblog.herokuapp.com/posts/archive/2015/1">
+                                    2015年1月</a>&nbsp;(1)
+                            </li>
+                        
+                            <li>
+                                <a href="https://yidaoblog.herokuapp.com/posts/archive/2014/12">
+                                    2014年12月</a>&nbsp;(1)
+                            </li>
+                        
+                    </ul>
+                </div>
+                <div id="meta-2" class="widget widget_meta">
+                    <h3>功能</h3>
+                    <ul>
+                        
+                        <li><a href="https://yidaoblog.herokuapp.com/xadmin">管理站点</a></li>
+                        
+                        
+                        <li>
+                            <a href="https://yidaoblog.herokuapp.com/accounts/logout/">登出</a>
+                        </li>
+                        
+                        <li><a href="https://yidaoblog.herokuapp.com/#">文章<abbr title="RSS">RSS</abbr></a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- sidebar north END -->
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div id="footer">
+            <a id="gotop" href="https://yidaoblog.herokuapp.com/#" onclick="MGJS.goTop();return false;">回到顶部</a>
+
+            <div id="copyright">版权所有 © 2014 <a href="http://www.pycoding.com/">野猪林</a></div>
+            <div id="themeinfo">页面设计由 <a href="http://www.pycoding.com/">熊能</a> 提供, 通过
+                <a href="http://validator.w3.org/check?uri=referer">XHTML 1.1</a>
+                和 <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3">CSS 3</a>
+                验证.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script class="javascript" src="{% static 'js/shBrushJScript.js' %}"></script>
+<script class="javascript" src="{% static 'js/shBrushBash.js' %}"></script>
+<script class="javascript" src="{% static 'js/shBrushPhp.js' %}"></script>
+<script class="javascript" src="{% static 'js/shBrushJava.js' %}"></script>
+<script class="javascript" src="{% static 'js/shBrushSql.js' %}"></script>
+<script class="javascript" src="{% static 'js/shBrushXml.js' %}"></script>
+<script class="javascript" src="{% static 'js/shBrushPython.js' %}"></script>
+<script class="javascript" src="{% static 'js/shBrushCss.js' %}"></script>
+<script class="javascript" src="{% static 'js/shBrushCpp.js' %}"></script>
+
+
+
+</body></html>
