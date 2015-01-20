@@ -1,35 +1,42 @@
-{% load static from staticfiles %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-<link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="{% static 'css/blog.css' %}">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-</head>
-<body>
-<h1>test</h1>
-<div class="page-header">
-<a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
-	<h1><a href="/">列表页</a></h1>
-</div>
-<div class="content">
-<div class="row">
-<div class="col-md-8">
-{% for post in posts %}
-<div class="post">
-	<p>创建时间:{{post.create_date}}</p>
-	<h1><a href="">{{post.title}}</a></h1>
-	<p>{{post.text|truncatechars:200}}</p>
-</div>
-{% endfor %}
-</div>
-</div>
-</div>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+{% for post in posts %}
+  <div class="post">
+       <h2><a href="{% url 'pyblog.views.post_detail' pk=post.id %}">{{post.title}}</a></h2>
+       <div class="info">
+           <span class="date">
+           	{% if post.published_date %}
+            		{{post.published_date}}
+            {% endif %}
+           </span>
+           <span class="comments">2 条评论</span>
+           <span class="comments">53 人阅读&nbsp;&nbsp;</span>
+           <div class="fixed"></div>
+       </div>
+       <div class="content">
+           <p> {{post.text|truncatechars:50}}  <a href="/post/detail/{{post.id}}/">查看全文...</a></p>
+       </div>
+       <div class="under">
+           <span class="categories">分类: </span>
+           <span>
+               <a href="https://yidaoblog.herokuapp.com/posts/category/Linux" rel="category tag">Linux
+               </a>
+           </span>
+           <span class="tags">标签: </span>
+           <span>
+           		<a href="https://yidaoblog.herokuapp.com/posts/tag/%E8%BF%AD%E4%BB%A3" rel="tag">迭代</a>&nbsp;
+           </span>
+       </div>
+   </div>
+{% endfor %}
+<div class="text-right">
+  <ul class="pagination">
+        <li class="disabled"><span class="disabled prev">‹‹ 上一页</span></li>
+        <li class="active"><span class="current page">1</span></li>
+        <li><a href="https://yidaoblog.herokuapp.com/?page=2" class="page">2</a></li>
+        <li><a href="https://yidaoblog.herokuapp.com/?page=2" class="next">下一页 ››</a></li>
+    
+  </ul>
+</div>
+{% endblock content %}
